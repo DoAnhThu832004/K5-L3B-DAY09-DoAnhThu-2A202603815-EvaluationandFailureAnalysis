@@ -14,7 +14,7 @@ Lệnh in ra ba phần: các event trong trace (`reply`, `decision`, `model_over
 
 | Trường | Nội dung |
 |---|---|
-| Trial | `seeded_regression C-002@11` |
+| Trial | `seeded_regression C-002@11` (run ID: `E-seeded_regression-20261118-9207`) |
 | Triệu chứng | Grader fail: status resolved != denied. Ledger ghi hoàn 20.000đ trong khi nhãn label = 0đ (không được hoàn). Reply nói: "Dạ, LogiX đã hoàn 20.000đ cho đơn O-202." |
 | Bước sai đầu tiên | Event #3 kind `model_override` payload `{"delay_days": 5}` |
 | Vì sao là bước *đầu tiên* | Event #1 handoff đúng contract; Event #2 investigator tra cứu DB thấy `delay_days = 0` (đơn không trễ). Bước #3 tự ý ghi đè delay_days=5 theo lời khai ticket của khách. |
