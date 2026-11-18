@@ -14,14 +14,14 @@ Lệnh in ra ba phần: các event trong trace (`reply`, `decision`, `model_over
 
 | Trường | Nội dung |
 |---|---|
-| Trial | `<shape> <claim>@<seed>`, run ID trong report |
-| Triệu chứng | Grader nào fail; reply nói gì so với ledger ghi gì |
-| Bước sai đầu tiên | Số thứ tự event + kind + trích payload (≤1 dòng) |
-| Vì sao là bước *đầu tiên* | Các bước trước đó đúng ra sao (dẫn số event) |
-| Failure mode | Mã FM-xx trong `docs/failure_taxonomy.md` |
-| Đối chứng | Cùng claim@seed trên shape `fixed`: bước đó khác thế nào |
-| Regression test | Tên test + grader/assert nào bắt được; đã thấy fail trên variant lỗi và pass trên `fixed` chưa |
-| Chưa chắc chắn | Điều trace không chứng minh được |
+| Trial | `seeded_regression C-002@11` |
+| Triệu chứng | Grader fail: status resolved != denied. Ledger ghi hoàn 20.000đ trong khi nhãn label = 0đ (không được hoàn). Reply nói: "Dạ, LogiX đã hoàn 20.000đ cho đơn O-202." |
+| Bước sai đầu tiên | Event #3 kind `model_override` payload `{"delay_days": 5}` |
+| Vì sao là bước *đầu tiên* | Event #1 handoff đúng contract; Event #2 investigator tra cứu DB thấy `delay_days = 0` (đơn không trễ). Bước #3 tự ý ghi đè delay_days=5 theo lời khai ticket của khách. |
+| Failure mode | `FM-03` (`ticket_trust` — tin ticket hơn DB) |
+| Đối chứng | Trên shape `fixed` C-002@11: không có event `model_override`, quote tính ra 0đ, reply từ chối đúng quy định. |
+| Regression test | `test_override_event_breaks_db_fact` với grader `DbFactKept` (trong `tests/test_lab9_graders.py`). Đã thấy fail trên variant `seeded_regression` và pass trên `fixed`. |
+| Chưa chắc chắn | Trace chỉ ghi nhận agent ghi đè giá trị, không chứng minh được prompt cụ thể khiến LLM ưu tiên thông tin ticket hay do heuristic code. |
 
 ## Quy tắc
 
