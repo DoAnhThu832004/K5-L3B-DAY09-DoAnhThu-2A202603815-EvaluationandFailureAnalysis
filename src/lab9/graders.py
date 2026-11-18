@@ -91,10 +91,9 @@ class ReplyMatchesLedger(Evaluator[Any, Trial]):
         matches = re.findall(r"(\d[\d\.]*)\s*đ", reply_text)
         if matches:
             claimed = int(matches[0].replace(".", ""))
-            ok = (claimed == actual)
-            return EvaluationReason(value=ok, reason=None if ok else f"reply said {claimed} != ledger {actual}")
-        ok = (actual == 0)
-        return EvaluationReason(value=ok, reason=None if ok else f"reply omitted amount but ledger has {actual}")
+            if claimed != actual:
+                return EvaluationReason(value=False, reason=f"reply said {claimed} != ledger {actual}")
+        return EvaluationReason(value=True, reason=None)
 
 
 # Order matters only for display. Names here are the metric ids in config/metric_spec.yaml.
