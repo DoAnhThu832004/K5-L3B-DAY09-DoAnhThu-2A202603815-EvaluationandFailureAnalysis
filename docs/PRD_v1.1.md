@@ -45,7 +45,7 @@ Quy tắc: tiền và phê duyệt luôn chấm bằng code. Judge chỉ dùng c
 
 ## 5. Cổng release
 - Lệnh: `python -m lab9.gate --pr reports/eval_<shape>.json --baseline reports/baseline_v1.json`
-- Baseline lấy từ nhánh được bảo vệ, phủ đủ `item × seed`; `eval_set_sha` của PR phải trùng baseline (`9207908601f5`).
+- Baseline lấy từ nhánh được bảo vệ, phủ đủ `item × seed`; `eval_set_sha` của PR phải trùng baseline (`d6b636beeaee`).
 - Gate exit 1 → **không merge**. Người xử lý: Trưởng nhóm Release (AI Release Engineer). Ngoại lệ (waiver) cần: Ban Kỹ thuật (Technical Lead) duyệt, ghi rõ lý do vào PR.
 
 ## 6. Bằng chứng còn thiếu / rủi ro mở
